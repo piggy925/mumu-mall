@@ -5,10 +5,12 @@ import com.mumu.mumumall.exception.MallExceptionEnum;
 import com.mumu.mumumall.model.dao.UserMapper;
 import com.mumu.mumumall.model.pojo.User;
 import com.mumu.mumumall.service.UserService;
+import com.mumu.mumumall.util.MD5Utils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.security.NoSuchAlgorithmException;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -29,7 +31,11 @@ public class UserServiceImpl implements UserService {
 
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password);
+        try {
+            user.setPassword(MD5Utils.getMD5Str(password));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
 
         int count = userMapper.insertSelective(user);
         if (count == 0) {
