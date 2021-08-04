@@ -1,5 +1,6 @@
 package com.mumu.mumumall.service.impl;
 
+import com.mumu.mumumall.common.Constant;
 import com.mumu.mumumall.exception.MallException;
 import com.mumu.mumumall.exception.MallExceptionEnum;
 import com.mumu.mumumall.model.dao.UserMapper;
@@ -41,5 +42,34 @@ public class UserServiceImpl implements UserService {
         if (count == 0) {
             throw new MallException(MallExceptionEnum.INSERT_FAIL);
         }
+    }
+
+    @Override
+    public User login(String username, String password) throws MallException {
+        String md5Password = null;
+        try {
+            md5Password = MD5Utils.getMD5Str(password);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        User user = userMapper.selectLogin(username, md5Password);
+        if (ObjectUtils.isEmpty(user)) {
+            throw new MallException(MallExceptionEnum.WRONG_PASSWORD);
+        }
+        return user;
+    }
+
+    @Override
+    public void updateUserInfo(User user) throws MallException {
+        int count = userMapper.updateByPrimaryKeySelective(user);
+        if (count > 1) {
+            throw new MallException(MallExceptionEnum.UPDATE_FAIL);
+        }
+    }
+
+    @Override
+    public boolean checkAdminRole(User user) {
+        return user.getRole().equals(Constant.ROLE_ADMIN);
     }
 }

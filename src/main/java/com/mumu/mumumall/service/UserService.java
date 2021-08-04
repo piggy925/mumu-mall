@@ -25,4 +25,30 @@ public interface UserService {
      * @throws MallException the mall exception
      */
     void register(String username, String password) throws MallException;
+
+    /**
+     * 用户登录.
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @return 用户对象
+     * @throws MallException the mall exception
+     */
+    User login(String username, String password) throws MallException;
+
+    /**
+     * 更新用户个人信息.
+     *
+     * @param user 用户对象
+     * @throws MallException the mall exception
+     */
+    void updateUserInfo(User user) throws MallException;
+
+    /**
+     * 验证用户管理员权限.
+     *
+     * @param user 用户对象
+     * @return the boolean
+     */
+    boolean checkAdminRole(User user);
 }
