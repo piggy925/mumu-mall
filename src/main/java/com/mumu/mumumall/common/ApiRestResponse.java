@@ -38,6 +38,10 @@ public class ApiRestResponse<T> {
         return new ApiRestResponse<>(ex.getCode(), ex.getMsg());
     }
 
+    public static <T> ApiRestResponse<T> error(Integer code, String msg) {
+        return new ApiRestResponse<>(code, msg);
+    }
+
     @Override
     public String toString() {
         return "ApiRestResponse{" +

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @RestController
 public class CategoryController {
@@ -22,11 +23,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping("admin/category/add")
-    public ApiRestResponse addCategory(HttpSession session, @RequestBody addCategoryReq addCategoryReq) {
-        if (addCategoryReq.getName() == null || addCategoryReq.getType() == null || addCategoryReq.getOrderNum() == null || addCategoryReq.getParentId() == null) {
-            return ApiRestResponse.error(MallExceptionEnum.PARA_NOT_COMPLETE);
-        }
-
+    public ApiRestResponse addCategory(HttpSession session, @Valid @RequestBody addCategoryReq addCategoryReq) {
         User user = (User) session.getAttribute(Constant.MALL_USER);
         if (user == null) {
             return ApiRestResponse.error(MallExceptionEnum.NEED_LOGIN);
