@@ -24,7 +24,7 @@ public class UserController {
         return user.toString();
     }
 
-    @PostMapping("/register")
+    @GetMapping("/register")
     public ApiRestResponse register(@RequestParam("username") String username, @RequestParam("password") String password) throws MallException {
         if (ObjectUtils.isEmpty(username)) {
             return ApiRestResponse.error(MallExceptionEnum.NEED_USER_NAME);

@@ -1,6 +1,6 @@
 package com.mumu.mumumall.exception;
 
-public class MallException extends Exception {
+public class MallException extends RuntimeException {
     private Integer code;
     private String msg;
 
