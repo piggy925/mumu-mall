@@ -7,6 +7,7 @@ import com.mumu.mumumall.model.pojo.User;
 import com.mumu.mumumall.model.request.addCategoryReq;
 import com.mumu.mumumall.service.CategoryService;
 import com.mumu.mumumall.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,7 @@ public class CategoryController {
     @Resource
     private CategoryService categoryService;
 
+    @ApiOperation("后台添加分类")
     @PostMapping("admin/category/add")
     public ApiRestResponse addCategory(HttpSession session, @Valid @RequestBody addCategoryReq addCategoryReq) {
         User user = (User) session.getAttribute(Constant.MALL_USER);
