@@ -10,6 +10,7 @@ public enum MallExceptionEnum {
     NEED_LOGIN(10007, "请先登录"),
     UPDATE_FAIL(10008, "更新失败"),
     CREATE_FAIL(10011, "新增失败"),
+    DELETE_FAIL(10013, "删除失败"),
     NEED_ADMIN(10009, "需要管理员权限"),
     PARA_NOT_COMPLETE(10010, "参数不完整"),
     REQUEST_PARAM_ERROR(10012, "参数错误"),

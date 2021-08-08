@@ -30,4 +30,11 @@ public class CategoryController {
         categoryService.update(updateCategoryReq);
         return ApiRestResponse.success();
     }
+
+    @ApiOperation("后台删除分类")
+    @PostMapping("/admin/category/delete")
+    public ApiRestResponse deleteCategory(Integer id) {
+        categoryService.delete(id);
+        return ApiRestResponse.success();
+    }
 }

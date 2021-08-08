@@ -49,4 +49,17 @@ public class CategoryServiceImpl implements CategoryService {
             throw new MallException(MallExceptionEnum.CREATE_FAIL);
         }
     }
+
+    @Override
+    public void delete(Integer id) {
+        Category category = categoryMapper.selectByPrimaryKey(id);
+        if (category == null) {
+            throw new MallException(MallExceptionEnum.DELETE_FAIL);
+        }
+
+        int count = categoryMapper.deleteByPrimaryKey(id);
+        if (count == 0) {
+            throw new MallException(MallExceptionEnum.DELETE_FAIL);
+        }
+    }
 }
