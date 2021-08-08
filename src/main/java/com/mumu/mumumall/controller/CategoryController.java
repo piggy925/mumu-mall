@@ -4,7 +4,8 @@ import com.mumu.mumumall.common.ApiRestResponse;
 import com.mumu.mumumall.common.Constant;
 import com.mumu.mumumall.exception.MallExceptionEnum;
 import com.mumu.mumumall.model.pojo.User;
-import com.mumu.mumumall.model.request.addCategoryReq;
+import com.mumu.mumumall.model.request.AddCategoryReq;
+import com.mumu.mumumall.model.request.UpdateCategoryReq;
 import com.mumu.mumumall.service.CategoryService;
 import com.mumu.mumumall.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -24,14 +25,29 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @ApiOperation("后台添加分类")
-    @PostMapping("admin/category/add")
-    public ApiRestResponse addCategory(HttpSession session, @Valid @RequestBody addCategoryReq addCategoryReq) {
+    @PostMapping("/admin/category/add")
+    public ApiRestResponse addCategory(HttpSession session, @Valid @RequestBody AddCategoryReq addCategoryReq) {
         User user = (User) session.getAttribute(Constant.MALL_USER);
         if (user == null) {
             return ApiRestResponse.error(MallExceptionEnum.NEED_LOGIN);
         }
         if (userService.checkAdminRole(user)) {
             categoryService.add(addCategoryReq);
+            return ApiRestResponse.success();
+        } else {
+            return ApiRestResponse.error(MallExceptionEnum.NEED_ADMIN);
+        }
+    }
+
+    @ApiOperation("后台更新分类")
+    @PostMapping("/admin/category/update")
+    public ApiRestResponse updateCategory(HttpSession session, @Valid @RequestBody UpdateCategoryReq updateCategoryReq) {
+        User user = (User) session.getAttribute(Constant.MALL_USER);
+        if (user == null) {
+            return ApiRestResponse.error(MallExceptionEnum.NEED_LOGIN);
+        }
+        if (userService.checkAdminRole(user)) {
+            categoryService.update(updateCategoryReq);
             return ApiRestResponse.success();
         } else {
             return ApiRestResponse.error(MallExceptionEnum.NEED_ADMIN);

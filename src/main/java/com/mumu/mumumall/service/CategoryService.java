@@ -1,7 +1,10 @@
 package com.mumu.mumumall.service;
 
-import com.mumu.mumumall.model.request.addCategoryReq;
+import com.mumu.mumumall.model.request.AddCategoryReq;
+import com.mumu.mumumall.model.request.UpdateCategoryReq;
 
 public interface CategoryService {
-    void add(addCategoryReq addCategoryReq);
+    void add(AddCategoryReq addCategoryReq);
+
+    void update(UpdateCategoryReq updateCategoryReq);
 }
