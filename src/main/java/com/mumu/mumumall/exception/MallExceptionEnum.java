@@ -14,6 +14,8 @@ public enum MallExceptionEnum {
     NEED_ADMIN(10009, "需要管理员权限"),
     PARA_NOT_COMPLETE(10010, "参数不完整"),
     REQUEST_PARAM_ERROR(10012, "参数错误"),
+    MKDIR_FAIL(10014, "创建文件夹失败"),
+    UPLOAD_FILE_FAIL(10015, "上传文件失败"),
 
     SYSTEM_ERROR(20000, "系统异常！");
 
