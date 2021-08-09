@@ -3,6 +3,9 @@ package com.mumu.mumumall.service;
 import com.github.pagehelper.PageInfo;
 import com.mumu.mumumall.model.request.AddCategoryReq;
 import com.mumu.mumumall.model.request.UpdateCategoryReq;
+import com.mumu.mumumall.vo.CategoryVO;
+
+import java.util.List;
 
 public interface CategoryService {
     /**
@@ -26,5 +29,19 @@ public interface CategoryService {
      */
     void delete(Integer id);
 
+    /**
+     * 后台显示分类信息.
+     *
+     * @param pageNum  当前页号
+     * @param pageSize 页面大小
+     * @return the page info
+     */
     PageInfo listForAdmin(Integer pageNum, Integer pageSize);
+
+    /**
+     * 前台显示分类信息.
+     *
+     * @return the list
+     */
+    List<CategoryVO> listForCustomer();
 }

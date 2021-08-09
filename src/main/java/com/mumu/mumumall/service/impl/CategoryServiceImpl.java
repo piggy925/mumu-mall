@@ -9,10 +9,13 @@ import com.mumu.mumumall.model.pojo.Category;
 import com.mumu.mumumall.model.request.AddCategoryReq;
 import com.mumu.mumumall.model.request.UpdateCategoryReq;
 import com.mumu.mumumall.service.CategoryService;
+import com.mumu.mumumall.vo.CategoryVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("categoryService")
@@ -72,5 +75,26 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categoryList = categoryMapper.selectList();
         PageInfo pageInfo = new PageInfo(categoryList);
         return pageInfo;
+    }
+
+    @Override
+    public List<CategoryVO> listForCustomer() {
+        List<CategoryVO> categoryVOList = new ArrayList<>();
+        formatCategories(categoryVOList, 0);
+        return categoryVOList;
+    }
+
+    private void formatCategories(List<CategoryVO> categoryVOList, Integer parentId) {
+        List<Category> categoryList = categoryMapper.selectByParentId(parentId);
+        if (!CollectionUtils.isEmpty(categoryList)) {
+            for (int i = 0; i < categoryList.size(); i++) {
+                Category category = categoryList.get(i);
+                CategoryVO categoryVO = new CategoryVO();
+                BeanUtils.copyProperties(category, categoryVO);
+                categoryVOList.add(categoryVO);
+                formatCategories(categoryVO.getChildCategory(), categoryVO.getId());
+            }
+        }
+
     }
 }

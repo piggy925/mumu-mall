@@ -5,6 +5,7 @@ import com.mumu.mumumall.common.ApiRestResponse;
 import com.mumu.mumumall.model.request.AddCategoryReq;
 import com.mumu.mumumall.model.request.UpdateCategoryReq;
 import com.mumu.mumumall.service.CategoryService;
+import com.mumu.mumumall.vo.CategoryVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class CategoryController {
@@ -45,5 +47,12 @@ public class CategoryController {
     public ApiRestResponse listCategoryForAdmin(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         PageInfo pageInfo = categoryService.listForAdmin(pageNum, pageSize);
         return ApiRestResponse.success(pageInfo);
+    }
+
+    @ApiOperation("前台分类列表")
+    @PostMapping("/category/list")
+    public ApiRestResponse listCategoryForCustomer() {
+        List<CategoryVO> categoryVOList = categoryService.listForCustomer();
+        return ApiRestResponse.success(categoryVOList);
     }
 }
