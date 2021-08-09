@@ -1,5 +1,6 @@
 package com.mumu.mumumall.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.mumu.mumumall.common.ApiRestResponse;
 import com.mumu.mumumall.model.request.AddCategoryReq;
 import com.mumu.mumumall.model.request.UpdateCategoryReq;
@@ -7,6 +8,7 @@ import com.mumu.mumumall.service.CategoryService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -36,5 +38,12 @@ public class CategoryController {
     public ApiRestResponse deleteCategory(Integer id) {
         categoryService.delete(id);
         return ApiRestResponse.success();
+    }
+
+    @ApiOperation("后台分类列表")
+    @PostMapping("/admin/category/list")
+    public ApiRestResponse listCategoryForAdmin(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        PageInfo pageInfo = categoryService.listForAdmin(pageNum, pageSize);
+        return ApiRestResponse.success(pageInfo);
     }
 }

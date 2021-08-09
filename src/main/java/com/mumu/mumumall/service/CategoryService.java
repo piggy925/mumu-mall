@@ -1,5 +1,6 @@
 package com.mumu.mumumall.service;
 
+import com.github.pagehelper.PageInfo;
 import com.mumu.mumumall.model.request.AddCategoryReq;
 import com.mumu.mumumall.model.request.UpdateCategoryReq;
 
@@ -24,4 +25,6 @@ public interface CategoryService {
      * @param id 商品id
      */
     void delete(Integer id);
+
+    PageInfo listForAdmin(Integer pageNum, Integer pageSize);
 }

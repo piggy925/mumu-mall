@@ -1,5 +1,7 @@
 package com.mumu.mumumall.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mumu.mumumall.exception.MallException;
 import com.mumu.mumumall.exception.MallExceptionEnum;
 import com.mumu.mumumall.model.dao.CategoryMapper;
@@ -11,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("categoryService")
 public class CategoryServiceImpl implements CategoryService {
@@ -61,5 +64,13 @@ public class CategoryServiceImpl implements CategoryService {
         if (count == 0) {
             throw new MallException(MallExceptionEnum.DELETE_FAIL);
         }
+    }
+
+    @Override
+    public PageInfo listForAdmin(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize, "type, order_num");
+        List<Category> categoryList = categoryMapper.selectList();
+        PageInfo pageInfo = new PageInfo(categoryList);
+        return pageInfo;
     }
 }

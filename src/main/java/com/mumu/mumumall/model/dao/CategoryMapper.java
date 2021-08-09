@@ -2,6 +2,8 @@ package com.mumu.mumumall.model.dao;
 
 import com.mumu.mumumall.model.pojo.Category;
 
+import java.util.List;
+
 public interface CategoryMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,4 +18,6 @@ public interface CategoryMapper {
     int updateByPrimaryKey(Category record);
 
     Category selectByName(String name);
+
+    List<Category> selectList();
 }
