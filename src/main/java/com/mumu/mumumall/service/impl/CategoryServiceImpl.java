@@ -11,6 +11,7 @@ import com.mumu.mumumall.model.request.UpdateCategoryReq;
 import com.mumu.mumumall.service.CategoryService;
 import com.mumu.mumumall.vo.CategoryVO;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -78,6 +79,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Cacheable(value = "listForCustomer")
     public List<CategoryVO> listForCustomer() {
         List<CategoryVO> categoryVOList = new ArrayList<>();
         formatCategories(categoryVOList, 0);

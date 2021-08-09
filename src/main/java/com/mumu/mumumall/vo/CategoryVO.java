@@ -1,5 +1,6 @@
 package com.mumu.mumumall.vo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 /**
  * 商品分类
  */
-public class CategoryVO {
+public class CategoryVO implements Serializable {
     /**
      * 主键
      */
