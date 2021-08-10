@@ -3,9 +3,12 @@ package com.mumu.mumumall.controller;
 import com.mumu.mumumall.common.ApiRestResponse;
 import com.mumu.mumumall.common.Constant;
 import com.mumu.mumumall.exception.MallExceptionEnum;
+import com.mumu.mumumall.model.pojo.Product;
 import com.mumu.mumumall.model.request.AddProductReq;
+import com.mumu.mumumall.model.request.UpdateProductReq;
 import com.mumu.mumumall.service.ProductService;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,10 +32,28 @@ public class ProductAdminController {
     @Resource
     ProductService productService;
 
+    @ApiOperation("后台删除商品")
+    @PostMapping("/admin/product/delete")
+    public ApiRestResponse deleteProduct(@RequestParam Integer id) {
+        productService.deleteProduct(id);
+        return ApiRestResponse.success();
+    }
+
+    @ApiOperation("后台更新商品")
+    @PostMapping("/admin/product/update")
+    public ApiRestResponse updateProduct(@Valid @RequestBody UpdateProductReq updateProductReq) {
+        Product product = new Product();
+        BeanUtils.copyProperties(updateProductReq, product);
+        productService.updateProduct(product);
+        return ApiRestResponse.success();
+    }
+
     @ApiOperation("后台新增商品")
     @PostMapping("/admin/product/add")
     public ApiRestResponse addProduct(@Valid @RequestBody AddProductReq addProductReq) {
-        productService.addProduct(addProductReq);
+        Product product = new Product();
+        BeanUtils.copyProperties(addProductReq, product);
+        productService.addProduct(product);
         return ApiRestResponse.success();
     }
 

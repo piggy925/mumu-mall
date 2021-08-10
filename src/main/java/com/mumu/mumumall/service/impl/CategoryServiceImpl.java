@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
     public void update(UpdateCategoryReq updateCategoryReq) {
         if (updateCategoryReq.getName() != null) {
             Category categoryOld = categoryMapper.selectByName(updateCategoryReq.getName());
-            if (categoryOld != null && categoryOld.getId().equals(updateCategoryReq.getId())) {
+            if (categoryOld != null && !categoryOld.getId().equals(updateCategoryReq.getId())) {
                 throw new MallException(MallExceptionEnum.NAME_EXISTED);
             }
         }
@@ -53,7 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         int count = categoryMapper.updateByPrimaryKeySelective(category);
         if (count == 0) {
-            throw new MallException(MallExceptionEnum.CREATE_FAIL);
+            throw new MallException(MallExceptionEnum.UPDATE_FAIL);
         }
     }
 
