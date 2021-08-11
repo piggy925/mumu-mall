@@ -41,4 +41,12 @@ public interface ProductService {
      * @return 分页对象
      */
     PageInfo listForAdmin(Integer pageNum, Integer pageSize);
+
+    /**
+     * 显示商品详情.
+     *
+     * @param id 商品id
+     * @return 商品对象
+     */
+    Product detail(Integer id);
 }
