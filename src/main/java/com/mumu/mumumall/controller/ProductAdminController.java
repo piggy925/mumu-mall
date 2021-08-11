@@ -8,6 +8,7 @@ import com.mumu.mumumall.model.pojo.Product;
 import com.mumu.mumumall.model.request.AddProductReq;
 import com.mumu.mumumall.model.request.UpdateProductReq;
 import com.mumu.mumumall.service.ProductService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,7 @@ import java.util.UUID;
 /**
  * 后台商品管理Controller.
  */
+@Api(tags = "后台商品管理接口")
 @RestController
 public class ProductAdminController {
     @Resource

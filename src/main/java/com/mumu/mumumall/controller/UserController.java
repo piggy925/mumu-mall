@@ -6,6 +6,7 @@ import com.mumu.mumumall.exception.MallException;
 import com.mumu.mumumall.exception.MallExceptionEnum;
 import com.mumu.mumumall.model.pojo.User;
 import com.mumu.mumumall.service.UserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+@Api(tags = "用户接口")
 @RestController
 public class UserController {
     @Resource

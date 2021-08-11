@@ -6,6 +6,7 @@ import com.mumu.mumumall.model.request.AddCategoryReq;
 import com.mumu.mumumall.model.request.UpdateCategoryReq;
 import com.mumu.mumumall.service.CategoryService;
 import com.mumu.mumumall.vo.CategoryVO;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
 
+@Api(tags = "商品分类管理接口")
 @RestController
 public class CategoryController {
     @Resource
