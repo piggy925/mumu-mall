@@ -32,6 +32,13 @@ public class ProductAdminController {
     @Resource
     ProductService productService;
 
+    @ApiOperation("后台批量上下架商品")
+    @PostMapping("/admin/product/batchUpdate")
+    public ApiRestResponse batchUpdateStatus(@RequestParam Integer[] ids, @RequestParam Integer status) {
+        productService.batchUpdateStatus(ids, status);
+        return ApiRestResponse.success();
+    }
+
     @ApiOperation("后台删除商品")
     @PostMapping("/admin/product/delete")
     public ApiRestResponse deleteProduct(@RequestParam Integer id) {
