@@ -1,5 +1,6 @@
 package com.mumu.mumumall.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.mumu.mumumall.common.ApiRestResponse;
 import com.mumu.mumumall.common.Constant;
 import com.mumu.mumumall.exception.MallExceptionEnum;
@@ -31,6 +32,13 @@ import java.util.UUID;
 public class ProductAdminController {
     @Resource
     ProductService productService;
+
+    @ApiOperation("后台获取商品列表")
+    @PostMapping("/admin/product/list")
+    public ApiRestResponse listForAdmin(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        PageInfo pageInfo = productService.listForAdmin(pageNum, pageSize);
+        return ApiRestResponse.success(pageInfo);
+    }
 
     @ApiOperation("后台批量上下架商品")
     @PostMapping("/admin/product/batchUpdate")

@@ -1,5 +1,7 @@
 package com.mumu.mumumall.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mumu.mumumall.exception.MallException;
 import com.mumu.mumumall.exception.MallExceptionEnum;
 import com.mumu.mumumall.model.dao.ProductMapper;
@@ -8,6 +10,7 @@ import com.mumu.mumumall.service.ProductService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -59,5 +62,13 @@ public class ProductServiceImpl implements ProductService {
         if (count == 0) {
             throw new MallException(MallExceptionEnum.UPDATE_FAIL);
         }
+    }
+
+    @Override
+    public PageInfo listForAdmin(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Product> products = productMapper.listForAdmin();
+        PageInfo<Object> pageInfo = new PageInfo(products);
+        return pageInfo;
     }
 }

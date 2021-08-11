@@ -1,5 +1,6 @@
 package com.mumu.mumumall.service;
 
+import com.github.pagehelper.PageInfo;
 import com.mumu.mumumall.model.pojo.Product;
 
 public interface ProductService {
@@ -31,4 +32,13 @@ public interface ProductService {
      * @param status 商品状态
      */
     void batchUpdateStatus(Integer[] ids, Integer status);
+
+    /**
+     * 分页查询后台商品列表.
+     *
+     * @param pageNum  当前页号
+     * @param pageSize 页面大小
+     * @return 分页对象
+     */
+    PageInfo listForAdmin(Integer pageNum, Integer pageSize);
 }

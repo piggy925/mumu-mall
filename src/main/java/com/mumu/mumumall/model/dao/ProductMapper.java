@@ -3,6 +3,8 @@ package com.mumu.mumumall.model.dao;
 import com.mumu.mumumall.model.pojo.Product;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface ProductMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -19,4 +21,6 @@ public interface ProductMapper {
     Product selectByName(String productName);
 
     int batchUpdateStatus(@Param("ids") Integer[] ids, @Param("status") Integer status);
+
+    List<Product> listForAdmin();
 }
