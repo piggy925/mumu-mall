@@ -54,7 +54,7 @@ public class CategoryController {
     @ApiOperation("前台分类列表")
     @PostMapping("/category/list")
     public ApiRestResponse listCategoryForCustomer() {
-        List<CategoryVO> categoryVOList = categoryService.listForCustomer();
+        List<CategoryVO> categoryVOList = categoryService.listForCustomer(0);
         return ApiRestResponse.success(categoryVOList);
     }
 }

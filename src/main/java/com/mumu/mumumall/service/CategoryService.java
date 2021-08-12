@@ -43,5 +43,5 @@ public interface CategoryService {
      *
      * @return the list
      */
-    List<CategoryVO> listForCustomer();
+    List<CategoryVO> listForCustomer(Integer categoryId);
 }

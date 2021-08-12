@@ -2,6 +2,7 @@ package com.mumu.mumumall.service;
 
 import com.github.pagehelper.PageInfo;
 import com.mumu.mumumall.model.pojo.Product;
+import com.mumu.mumumall.model.request.ListProductReq;
 
 public interface ProductService {
     /**
@@ -49,4 +50,12 @@ public interface ProductService {
      * @return 商品对象
      */
     Product detail(Integer id);
+
+    /**
+     * 分页查询前台商品.
+     *
+     * @param listProductReq the list product req
+     * @return the page info
+     */
+    PageInfo listForCustomer(ListProductReq listProductReq);
 }

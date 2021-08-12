@@ -1,7 +1,9 @@
 package com.mumu.mumumall.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.mumu.mumumall.common.ApiRestResponse;
 import com.mumu.mumumall.model.pojo.Product;
+import com.mumu.mumumall.model.request.ListProductReq;
 import com.mumu.mumumall.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,5 +27,12 @@ public class ProductCustomerController {
     public ApiRestResponse detail(@RequestParam Integer id) {
         Product product = productService.detail(id);
         return ApiRestResponse.success(product);
+    }
+
+    @ApiOperation("前台商品列表")
+    @GetMapping("/product/list")
+    public ApiRestResponse list(ListProductReq listProductReq) {
+        PageInfo pageInfo = productService.listForCustomer(listProductReq);
+        return ApiRestResponse.success(pageInfo);
     }
 }

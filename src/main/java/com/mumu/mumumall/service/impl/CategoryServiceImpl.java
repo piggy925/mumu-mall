@@ -80,9 +80,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Cacheable(value = "listForCustomer")
-    public List<CategoryVO> listForCustomer() {
+    public List<CategoryVO> listForCustomer(Integer categoryId) {
         List<CategoryVO> categoryVOList = new ArrayList<>();
-        formatCategories(categoryVOList, 0);
+        formatCategories(categoryVOList, categoryId);
         return categoryVOList;
     }
 
