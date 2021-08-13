@@ -16,6 +16,8 @@ public enum MallExceptionEnum {
     REQUEST_PARAM_ERROR(10012, "参数错误"),
     MKDIR_FAIL(10014, "创建文件夹失败"),
     UPLOAD_FILE_FAIL(10015, "上传文件失败"),
+    NOT_SALE(10016, "商品不可售"),
+    NOT_ENOUGH(10017, "商品库存不足"),
 
     SYSTEM_ERROR(20000, "系统异常！");
 

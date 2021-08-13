@@ -25,4 +25,14 @@ public class Constant {
     public interface ProductListOrderBy {
         Set<String> PRICE_ASC_DESC = Sets.newHashSet("price asc", "price desc");
     }
+
+    public interface PRODUCT_STATUS {
+        int SALE = 1; //商品状态为可售
+        int NOT_SALE = 0; //商品状态为下架
+    }
+
+    public interface CART_STATUS {
+        int UN_CHECKED = 0; //购物车商品为未被选中状态
+        int CHECKED = 1; //购物车商品为被选中状态
+    }
 }
