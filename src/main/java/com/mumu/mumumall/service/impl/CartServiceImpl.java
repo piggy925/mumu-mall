@@ -45,8 +45,16 @@ public class CartServiceImpl implements CartService {
             cartMapper.updateByPrimaryKeySelective(newCart);
         }
 
-        //TODO: 需完成购物车列表
-        return null;
+        return this.list(userId);
+    }
+
+    @Override
+    public List<CartVO> list(Integer userId) {
+        List<CartVO> cartVOS = cartMapper.selectList(userId);
+        for (CartVO cartVO : cartVOS) {
+            cartVO.setTotalPrice(cartVO.getPrice() * cartVO.getQuantity());
+        }
+        return cartVOS;
     }
 
     //验证添加到购物车的商品是否有效
