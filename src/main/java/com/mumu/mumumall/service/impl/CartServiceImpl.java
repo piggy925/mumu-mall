@@ -83,6 +83,24 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public List<CartVO> selectOrNot(Integer userId, Integer productId, Integer selected) {
+        Cart cart = cartMapper.selectCartByUserIdAndProductId(userId, productId);
+        if (ObjectUtils.isEmpty(cart)) {
+            throw new MallException(MallExceptionEnum.SELECT_FAIL);
+        } else {
+            cartMapper.selectOrNot(userId, productId, selected);
+        }
+
+        return this.list(userId);
+    }
+
+    @Override
+    public List<CartVO> selectAllOrNot(Integer userId, Integer selected) {
+        cartMapper.selectOrNot(userId, null, selected);
+        return this.list(userId);
+    }
+
+    @Override
     public List<CartVO> list(Integer userId) {
         List<CartVO> cartVOS = cartMapper.selectList(userId);
         for (CartVO cartVO : cartVOS) {
