@@ -49,6 +49,40 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public List<CartVO> update(Integer userId, Integer productId, Integer count) {
+        validProduct(productId, count);
+        Cart cart = cartMapper.selectCartByUserIdAndProductId(userId, productId);
+        if (ObjectUtils.isEmpty(cart)) {
+            //商品不在购物车内，则无法更新
+            throw new MallException(MallExceptionEnum.UPDATE_FAIL);
+        } else {
+            //商品已存在与购物车内，直接更新数量
+            Cart newCart = new Cart();
+            newCart.setQuantity(count);
+            newCart.setId(cart.getId());
+            newCart.setUserId(userId);
+            newCart.setProductId(productId);
+            cartMapper.updateByPrimaryKeySelective(newCart);
+        }
+
+        return this.list(userId);
+    }
+
+    @Override
+    public List<CartVO> delete(Integer userId, Integer productId) {
+        Cart cart = cartMapper.selectCartByUserIdAndProductId(userId, productId);
+        if (ObjectUtils.isEmpty(cart)) {
+            //商品不在购物车内，则无法删除
+            throw new MallException(MallExceptionEnum.DELETE_FAIL);
+        } else {
+            //商品已存在与购物车内，直接删除
+            cartMapper.deleteByPrimaryKey(productId);
+        }
+
+        return this.list(userId);
+    }
+
+    @Override
     public List<CartVO> list(Integer userId) {
         List<CartVO> cartVOS = cartMapper.selectList(userId);
         for (CartVO cartVO : cartVOS) {
