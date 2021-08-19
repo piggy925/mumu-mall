@@ -1,6 +1,8 @@
 package com.mumu.mumumall.common;
 
 import com.google.common.collect.Sets;
+import com.mumu.mumumall.exception.MallException;
+import com.mumu.mumumall.exception.MallExceptionEnum;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -34,5 +36,46 @@ public class Constant {
     public interface CART_STATUS {
         int UN_CHECKED = 0; //购物车商品为未被选中状态
         int CHECKED = 1; //购物车商品为被选中状态
+    }
+
+    public enum OrderStatusEnum {
+        CANCELED(0, "订单已取消"),
+        NOT_PAID(10, "订单未付款"),
+        PAID(20, "已付款"),
+        DELIVERED(30, "已发货"),
+        FINISHED(40, "已完成");
+
+        private Integer code;
+        private String status;
+
+        OrderStatusEnum(Integer code, String status) {
+            this.code = code;
+            this.status = status;
+        }
+
+        public static OrderStatusEnum codeOf(int code) {
+            for (OrderStatusEnum orderStatusEnum : OrderStatusEnum.values()) {
+                if (orderStatusEnum.getCode().equals(code)) {
+                    return orderStatusEnum;
+                }
+            }
+            throw new MallException(MallExceptionEnum.NO_ENUM);
+        }
+
+        public Integer getCode() {
+            return code;
+        }
+
+        public void setCode(Integer code) {
+            this.code = code;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
     }
 }

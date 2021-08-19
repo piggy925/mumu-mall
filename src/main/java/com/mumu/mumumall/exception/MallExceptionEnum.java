@@ -19,6 +19,8 @@ public enum MallExceptionEnum {
     UPLOAD_FILE_FAIL(10015, "上传文件失败"),
     NOT_SALE(10016, "商品不可售"),
     NOT_ENOUGH(10017, "商品库存不足"),
+    CART_EMPTY(10019, "未勾选商品"),
+    NO_ENUM(10020, "未找到对应的枚举"),
 
     SYSTEM_ERROR(20000, "系统异常！");
 
