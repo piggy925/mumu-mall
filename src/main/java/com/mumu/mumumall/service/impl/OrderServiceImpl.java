@@ -17,6 +17,7 @@ import com.mumu.mumumall.service.OrderService;
 import com.mumu.mumumall.util.OrderCodeFactory;
 import com.mumu.mumumall.vo.CartVO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
@@ -37,6 +38,8 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     OrderItemMapper orderItemMapper;
 
+    //数据库事务
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public String create(CreateOrderReq createOrderReq) {
         Integer userId = UserFilter.currentUser.getId();
