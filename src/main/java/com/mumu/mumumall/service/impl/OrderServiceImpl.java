@@ -16,9 +16,13 @@ import com.mumu.mumumall.service.CartService;
 import com.mumu.mumumall.service.OrderService;
 import com.mumu.mumumall.util.OrderCodeFactory;
 import com.mumu.mumumall.vo.CartVO;
+import com.mumu.mumumall.vo.OrderItemVO;
+import com.mumu.mumumall.vo.OrderVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -133,5 +137,36 @@ public class OrderServiceImpl implements OrderService {
             totalPrice += orderItem.getTotalPrice();
         }
         return totalPrice;
+    }
+
+    @Override
+    public OrderVO detail(String orderNo) {
+        Order order = orderMapper.selectByOrderNo(orderNo);
+        if (ObjectUtils.isEmpty(order)) {
+            throw new MallException(MallExceptionEnum.NO_ORDER);
+        }
+        Integer userId = UserFilter.currentUser.getId();
+        if (!(order.getUserId()).equals(userId)) {
+            throw new MallException(MallExceptionEnum.NO_YOUR_ORDER);
+        }
+
+        OrderVO orderVO = getOrderVO(order);
+        return orderVO;
+    }
+
+    private OrderVO getOrderVO(Order order) {
+        OrderVO orderVO = new OrderVO();
+        BeanUtils.copyProperties(order, orderVO);
+        List<OrderItem> orderItemList = orderItemMapper.selectByOrderNo(order.getOrderNo());
+        List<OrderItemVO> orderItemVOList = new ArrayList<>();
+        orderItemList.forEach(orderItem -> {
+            OrderItemVO orderItemVO = new OrderItemVO();
+            BeanUtils.copyProperties(orderItem, orderItemVO);
+            orderItemVOList.add(orderItemVO);
+        });
+        orderVO.setOrderItemVOList(orderItemVOList);
+        orderVO.setOrderStatusName(Constant.OrderStatusEnum.codeOf(orderVO.getOrderStatus()).getStatus());
+
+        return orderVO;
     }
 }

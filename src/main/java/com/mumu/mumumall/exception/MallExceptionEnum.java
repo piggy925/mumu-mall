@@ -21,6 +21,8 @@ public enum MallExceptionEnum {
     NOT_ENOUGH(10017, "商品库存不足"),
     CART_EMPTY(10019, "未勾选商品"),
     NO_ENUM(10020, "未找到对应的枚举"),
+    NO_ORDER(10021, "订单不存在"),
+    NO_YOUR_ORDER(10021, "订单不属于你"),
 
     SYSTEM_ERROR(20000, "系统异常！");
 
