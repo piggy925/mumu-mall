@@ -32,4 +32,11 @@ public interface OrderService {
      * @return PageInfo分页对象
      */
     PageInfo listForCustomer(Integer pageNum, Integer pageSize);
+
+    /**
+     * 取消订单.
+     *
+     * @param orderNo 订单编号
+     */
+    void cancel(String orderNo);
 }

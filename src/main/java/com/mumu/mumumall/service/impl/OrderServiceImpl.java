@@ -28,6 +28,7 @@ import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -189,5 +190,25 @@ public class OrderServiceImpl implements OrderService {
             orderVOList.add(orderVO);
         });
         return orderVOList;
+    }
+
+    @Override
+    public void cancel(String orderNo) {
+        Integer userId = UserFilter.currentUser.getId();
+        Order order = orderMapper.selectByOrderNo(orderNo);
+        if (ObjectUtils.isEmpty(order)) {
+            throw new MallException(MallExceptionEnum.NO_ORDER);
+        }
+        if (!order.getUserId().equals(userId)) {
+            throw new MallException(MallExceptionEnum.NO_YOUR_ORDER);
+        }
+        //只有订单处于未付款状态时才允许取消
+        if (Constant.OrderStatusEnum.NOT_PAID.getCode().equals(order.getOrderStatus())) {
+            order.setOrderStatus(Constant.OrderStatusEnum.CANCELED.getCode());
+            order.setEndTime(new Date());
+            orderMapper.updateByPrimaryKeySelective(order);
+        } else {
+            throw new MallException(MallExceptionEnum.WRONG_ORDER_STATUS);
+        }
     }
 }
