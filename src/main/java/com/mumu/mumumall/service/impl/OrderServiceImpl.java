@@ -2,6 +2,7 @@ package com.mumu.mumumall.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.zxing.WriterException;
 import com.mumu.mumumall.common.Constant;
 import com.mumu.mumumall.exception.MallException;
 import com.mumu.mumumall.exception.MallExceptionEnum;
@@ -17,16 +18,22 @@ import com.mumu.mumumall.model.request.CreateOrderReq;
 import com.mumu.mumumall.service.CartService;
 import com.mumu.mumumall.service.OrderService;
 import com.mumu.mumumall.util.OrderCodeFactory;
+import com.mumu.mumumall.util.QRCodeGenerator;
 import com.mumu.mumumall.vo.CartVO;
 import com.mumu.mumumall.vo.OrderItemVO;
 import com.mumu.mumumall.vo.OrderVO;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +51,9 @@ public class OrderServiceImpl implements OrderService {
     OrderMapper orderMapper;
     @Resource
     OrderItemMapper orderItemMapper;
+
+    @Value("${file.upload.ip}")
+    String ip;
 
     //数据库事务
     @Transactional(rollbackFor = Exception.class)
@@ -210,5 +220,22 @@ public class OrderServiceImpl implements OrderService {
         } else {
             throw new MallException(MallExceptionEnum.WRONG_ORDER_STATUS);
         }
+    }
+
+    @Override
+    public String qrcode(String orderNo) {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        String address = ip + ":" + request.getLocalPort();
+        String payUrl = "http://" + address + "/pay?orderNo=" + orderNo;
+        try {
+            QRCodeGenerator.generateQRCodeImage(payUrl, 350, 350, Constant.FILE_UPLOAD_DIR + orderNo + ".png");
+        } catch (WriterException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String pngAddress = "http://" + address + "/images/" + orderNo + ".png";
+        return pngAddress;
     }
 }

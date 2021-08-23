@@ -39,4 +39,13 @@ public interface OrderService {
      * @param orderNo 订单编号
      */
     void cancel(String orderNo);
+
+
+    /**
+     * 生成付款链接二维码.
+     *
+     * @param orderNo 订单编号
+     * @return 二维码图片地址
+     */
+    String qrcode(String orderNo);
 }
