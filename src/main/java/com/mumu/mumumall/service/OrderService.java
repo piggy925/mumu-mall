@@ -1,5 +1,6 @@
 package com.mumu.mumumall.service;
 
+import com.github.pagehelper.PageInfo;
 import com.mumu.mumumall.model.request.CreateOrderReq;
 import com.mumu.mumumall.vo.OrderVO;
 
@@ -22,4 +23,13 @@ public interface OrderService {
      * @return order对象
      */
     OrderVO detail(String orderNo);
+
+    /**
+     * 前台显示订单列表.
+     *
+     * @param pageNum  当前页号
+     * @param pageSize 每页大小
+     * @return PageInfo分页对象
+     */
+    PageInfo listForCustomer(Integer pageNum, Integer pageSize);
 }

@@ -1,5 +1,6 @@
 package com.mumu.mumumall.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.mumu.mumumall.common.ApiRestResponse;
 import com.mumu.mumumall.model.request.CreateOrderReq;
 import com.mumu.mumumall.service.OrderService;
@@ -31,5 +32,12 @@ public class OrderController {
     public ApiRestResponse detail(@RequestParam String orderNo) {
         OrderVO orderVO = orderService.detail(orderNo);
         return ApiRestResponse.success(orderVO);
+    }
+
+    @ApiOperation("前台订单列表")
+    @PostMapping("/order/list")
+    public ApiRestResponse list(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        PageInfo pageInfo = orderService.listForCustomer(pageNum, pageSize);
+        return ApiRestResponse.success(pageInfo);
     }
 }

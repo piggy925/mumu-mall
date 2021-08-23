@@ -2,6 +2,8 @@ package com.mumu.mumumall.model.dao;
 
 import com.mumu.mumumall.model.pojo.Order;
 
+import java.util.List;
+
 public interface OrderMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,4 +18,6 @@ public interface OrderMapper {
     int updateByPrimaryKey(Order record);
 
     Order selectByOrderNo(String orderNo);
+
+    List<Order> selectForCustomer(Integer userId);
 }
