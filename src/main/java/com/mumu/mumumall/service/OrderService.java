@@ -64,4 +64,12 @@ public interface OrderService {
      * @param orderNo 订单编号
      */
     void pay(String orderNo);
+
+
+    /**
+     * 订单发货.
+     *
+     * @param orderNo 订单编号
+     */
+    void deliver(String orderNo);
 }

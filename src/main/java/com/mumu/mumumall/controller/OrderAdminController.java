@@ -23,4 +23,11 @@ public class OrderAdminController {
         PageInfo pageInfo = orderService.listForAdmin(pageNum, pageSize);
         return ApiRestResponse.success(pageInfo);
     }
+
+    @ApiOperation(value = "订单发货")
+    @GetMapping("/admin/order/deliver")
+    public ApiRestResponse delivered(@RequestParam String orderNo) {
+        orderService.deliver(orderNo);
+        return ApiRestResponse.success();
+    }
 }

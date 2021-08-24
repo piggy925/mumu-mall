@@ -260,7 +260,22 @@ public class OrderServiceImpl implements OrderService {
             orderMapper.updateByPrimaryKeySelective(order);
         } else {
             throw new MallException(MallExceptionEnum.WRONG_ORDER_STATUS);
+        }
+    }
 
+    @Override
+    public void deliver(String orderNo) {
+        Order order = orderMapper.selectByOrderNo(orderNo);
+        if (ObjectUtils.isEmpty(order)) {
+            throw new MallException(MallExceptionEnum.NO_ORDER);
+        }
+        //订单状态为已付款才允许发货
+        if (order.getOrderStatus().equals(Constant.OrderStatusEnum.PAID.getCode())) {
+            order.setOrderStatus(Constant.OrderStatusEnum.DELIVERED.getCode());
+            order.setDeliveryTime(new Date());
+            orderMapper.updateByPrimaryKeySelective(order);
+        } else {
+            throw new MallException(MallExceptionEnum.WRONG_ORDER_STATUS);
         }
     }
 }
