@@ -247,4 +247,20 @@ public class OrderServiceImpl implements OrderService {
         String pngAddress = "http://" + address + "/images/" + orderNo + ".png";
         return pngAddress;
     }
+
+    @Override
+    public void pay(String orderNo) {
+        Order order = orderMapper.selectByOrderNo(orderNo);
+        if (ObjectUtils.isEmpty(order)) {
+            throw new MallException(MallExceptionEnum.NO_ORDER);
+        }
+        if (order.getOrderStatus().equals(Constant.OrderStatusEnum.NOT_PAID.getCode())) {
+            order.setOrderStatus(Constant.OrderStatusEnum.PAID.getCode());
+            order.setPayTime(new Date());
+            orderMapper.updateByPrimaryKeySelective(order);
+        } else {
+            throw new MallException(MallExceptionEnum.WRONG_ORDER_STATUS);
+
+        }
+    }
 }

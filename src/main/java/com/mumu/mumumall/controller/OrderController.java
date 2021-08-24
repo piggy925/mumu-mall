@@ -51,4 +51,11 @@ public class OrderController {
         String qrcode = orderService.qrcode(orderNo);
         return ApiRestResponse.success(qrcode);
     }
+
+    @ApiOperation("订单支付接口")
+    @GetMapping("/order/pay")
+    public ApiRestResponse pay(@RequestParam String orderNo) {
+        orderService.pay(orderNo);
+        return ApiRestResponse.success();
+    }
 }

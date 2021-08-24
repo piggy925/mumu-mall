@@ -57,4 +57,11 @@ public interface OrderService {
      * @return 二维码图片地址
      */
     String qrcode(String orderNo);
+
+    /**
+     * 订单支付接口.
+     *
+     * @param orderNo 订单编号
+     */
+    void pay(String orderNo);
 }
