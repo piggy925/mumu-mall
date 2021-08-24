@@ -193,6 +193,15 @@ public class OrderServiceImpl implements OrderService {
         return pageInfo;
     }
 
+    @Override
+    public PageInfo listForAdmin(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Order> orders = orderMapper.selectAllForAdmin();
+        List<OrderVO> orderVOList = orderListToOrderVOList(orders);
+        PageInfo<OrderVO> pageInfo = new PageInfo<>(orderVOList);
+        return pageInfo;
+    }
+
     private List<OrderVO> orderListToOrderVOList(List<Order> orders) {
         List<OrderVO> orderVOList = new ArrayList();
         orders.forEach(order -> {

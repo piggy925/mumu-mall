@@ -34,6 +34,15 @@ public interface OrderService {
     PageInfo listForCustomer(Integer pageNum, Integer pageSize);
 
     /**
+     * 后台订单列表.
+     *
+     * @param pageNum  当前页号
+     * @param pageSize 每页大小
+     * @return PageInfo分页对象
+     */
+    PageInfo listForAdmin(Integer pageNum, Integer pageSize);
+
+    /**
      * 取消订单.
      *
      * @param orderNo 订单编号
