@@ -72,4 +72,11 @@ public interface OrderService {
      * @param orderNo 订单编号
      */
     void deliver(String orderNo);
+
+    /**
+     * 完结订单.
+     *
+     * @param orderNo 订单编号
+     */
+    void finish(String orderNo);
 }

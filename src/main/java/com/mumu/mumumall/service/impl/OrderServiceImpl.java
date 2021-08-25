@@ -14,9 +14,11 @@ import com.mumu.mumumall.model.dao.ProductMapper;
 import com.mumu.mumumall.model.pojo.Order;
 import com.mumu.mumumall.model.pojo.OrderItem;
 import com.mumu.mumumall.model.pojo.Product;
+import com.mumu.mumumall.model.pojo.User;
 import com.mumu.mumumall.model.request.CreateOrderReq;
 import com.mumu.mumumall.service.CartService;
 import com.mumu.mumumall.service.OrderService;
+import com.mumu.mumumall.service.UserService;
 import com.mumu.mumumall.util.OrderCodeFactory;
 import com.mumu.mumumall.util.QRCodeGenerator;
 import com.mumu.mumumall.vo.CartVO;
@@ -51,6 +53,8 @@ public class OrderServiceImpl implements OrderService {
     OrderMapper orderMapper;
     @Resource
     OrderItemMapper orderItemMapper;
+    @Resource
+    UserService userService;
 
     @Value("${file.upload.ip}")
     String ip;
@@ -273,6 +277,27 @@ public class OrderServiceImpl implements OrderService {
         if (order.getOrderStatus().equals(Constant.OrderStatusEnum.PAID.getCode())) {
             order.setOrderStatus(Constant.OrderStatusEnum.DELIVERED.getCode());
             order.setDeliveryTime(new Date());
+            orderMapper.updateByPrimaryKeySelective(order);
+        } else {
+            throw new MallException(MallExceptionEnum.WRONG_ORDER_STATUS);
+        }
+    }
+
+    @Override
+    public void finish(String orderNo) {
+        User user = UserFilter.currentUser;
+        Order order = orderMapper.selectByOrderNo(orderNo);
+        if (ObjectUtils.isEmpty(order)) {
+            throw new MallException(MallExceptionEnum.NO_ORDER);
+        }
+        //只有管理员与订单所属用户可以完结订单
+        if (!userService.checkAdminRole(user) && !user.getId().equals(order.getUserId())) {
+            throw new MallException(MallExceptionEnum.NO_ORDER);
+        }
+        //订单状态为已发货才允许完结
+        if (order.getOrderStatus().equals(Constant.OrderStatusEnum.DELIVERED.getCode())) {
+            order.setOrderStatus(Constant.OrderStatusEnum.FINISHED.getCode());
+            order.setEndTime(new Date());
             orderMapper.updateByPrimaryKeySelective(order);
         } else {
             throw new MallException(MallExceptionEnum.WRONG_ORDER_STATUS);
