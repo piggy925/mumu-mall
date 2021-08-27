@@ -14,6 +14,17 @@ public class UpdateCategoryReq {
     private Integer parentId;
     private Integer orderNum;
 
+    @Override
+    public String toString() {
+        return "UpdateCategoryReq{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", parentId=" + parentId +
+                ", orderNum=" + orderNum +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

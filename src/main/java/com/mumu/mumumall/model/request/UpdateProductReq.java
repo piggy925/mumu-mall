@@ -44,6 +44,20 @@ public class UpdateProductReq {
      */
     private Integer status;
 
+    @Override
+    public String toString() {
+        return "UpdateProductReq{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", detail='" + detail + '\'' +
+                ", categoryId=" + categoryId +
+                ", price=" + price +
+                ", stock=" + stock +
+                ", status=" + status +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

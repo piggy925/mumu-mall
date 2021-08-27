@@ -11,28 +11,35 @@ public class CreateOrderReq {
      */
     @NotNull
     private String receiverName;
-
     /**
      * 收货人手机号快照
      */
     @NotNull
     private String receiverMobile;
-
     /**
      * 收货地址快照
      */
     @NotNull
     private String receiverAddress;
-
     /**
      * 运费，默认为0
      */
     private Integer postage;
-
     /**
      * 支付类型,1-在线支付
      */
     private Integer paymentType;
+
+    @Override
+    public String toString() {
+        return "CreateOrderReq{" +
+                "receiverName='" + receiverName + '\'' +
+                ", receiverMobile='" + receiverMobile + '\'' +
+                ", receiverAddress='" + receiverAddress + '\'' +
+                ", postage=" + postage +
+                ", paymentType=" + paymentType +
+                '}';
+    }
 
     public String getReceiverName() {
         return receiverName;

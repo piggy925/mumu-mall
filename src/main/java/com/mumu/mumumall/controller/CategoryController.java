@@ -8,10 +8,7 @@ import com.mumu.mumumall.service.CategoryService;
 import com.mumu.mumumall.vo.CategoryVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -45,14 +42,14 @@ public class CategoryController {
     }
 
     @ApiOperation("后台分类列表")
-    @PostMapping("/admin/category/list")
+    @GetMapping("/admin/category/list")
     public ApiRestResponse listCategoryForAdmin(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         PageInfo pageInfo = categoryService.listForAdmin(pageNum, pageSize);
         return ApiRestResponse.success(pageInfo);
     }
 
     @ApiOperation("前台分类列表")
-    @PostMapping("/category/list")
+    @GetMapping("/category/list")
     public ApiRestResponse listCategoryForCustomer() {
         List<CategoryVO> categoryVOList = categoryService.listForCustomer(0);
         return ApiRestResponse.success(categoryVOList);

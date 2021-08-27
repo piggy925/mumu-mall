@@ -2,14 +2,21 @@ package com.mumu.mumumall.model.request;
 
 public class ListProductReq {
     private String keyword;
-
     private Integer categoryId;
-
     private String orderBy;
-
     private Integer pageNum = 1;
-
     private Integer pageSize = 10;
+
+    @Override
+    public String toString() {
+        return "ListProductReq{" +
+                "keyword='" + keyword + '\'' +
+                ", categoryId=" + categoryId +
+                ", orderBy='" + orderBy + '\'' +
+                ", pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
+                '}';
+    }
 
     public String getKeyword() {
         return keyword;

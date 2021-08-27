@@ -8,16 +8,23 @@ public class AddCategoryReq {
     @Size(min = 3, max = 8)
     @NotNull(message = "name不能为null")
     private String name;
-
     @Max(3)
     @NotNull(message = "type不能为null")
     private Integer type;
-
     @NotNull(message = "parentId不能为null ")
     private Integer parentId;
-
     @NotNull(message = "orderNum不能为null")
     private Integer orderNum;
+
+    @Override
+    public String toString() {
+        return "AddCategoryReq{" +
+                "name='" + name + '\'' +
+                ", type=" + type +
+                ", parentId=" + parentId +
+                ", orderNum=" + orderNum +
+                '}';
+    }
 
     public String getName() {
         return name;

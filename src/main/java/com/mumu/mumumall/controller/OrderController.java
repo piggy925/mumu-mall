@@ -32,7 +32,7 @@ public class OrderController {
     }
 
     @ApiOperation("前台订单列表")
-    @PostMapping("/order/list")
+    @GetMapping("/order/list")
     public ApiRestResponse list(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         PageInfo pageInfo = orderService.listForCustomer(pageNum, pageSize);
         return ApiRestResponse.success(pageInfo);

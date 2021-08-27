@@ -6,6 +6,7 @@ import com.mumu.mumumall.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,7 @@ public class OrderAdminController {
     }
 
     @ApiOperation(value = "订单发货")
-    @GetMapping("/admin/order/deliver")
+    @PostMapping("/admin/order/delivered")
     public ApiRestResponse delivered(@RequestParam String orderNo) {
         orderService.deliver(orderNo);
         return ApiRestResponse.success();
