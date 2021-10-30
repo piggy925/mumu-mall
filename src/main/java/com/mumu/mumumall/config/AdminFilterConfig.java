@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * AdminFilter过滤器配置
+ * AdminFilter过滤器配置：用于校验后台管理员是否登录
  */
 @Configuration
 public class AdminFilterConfig {

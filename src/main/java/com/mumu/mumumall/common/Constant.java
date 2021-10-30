@@ -8,6 +8,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
+
+/**
+ * 常量类：用于存放常量.
+ */
 @Component
 public class Constant {
     public static final String MALL_USER = "mall_user";

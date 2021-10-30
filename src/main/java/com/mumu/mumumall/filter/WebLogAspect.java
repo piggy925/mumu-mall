@@ -16,6 +16,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
+/**
+ *  日志切面类：
+ *  用于后台api被调用时打印输出调用的URL、IP、参数等信息
+ */
 @Aspect
 @Component
 public class WebLogAspect {

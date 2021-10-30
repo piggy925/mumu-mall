@@ -2,6 +2,11 @@ package com.mumu.mumumall.common;
 
 import com.mumu.mumumall.exception.MallExceptionEnum;
 
+/**
+ * Api返回对象，用于统一返回给前端的数据格式.
+ *
+ * @param <T> the type parameter
+ */
 public class ApiRestResponse<T> {
     private static final int OK_CODE = 10000;
     private static final String OK_MSG = "SUCCESS";

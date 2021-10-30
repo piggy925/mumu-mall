@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * UserFilter过滤器配置
+ * UserFilter过滤器配置：用于判断前台用户是否登录
  */
 @Configuration
 public class UserFilterConfig {

@@ -26,6 +26,7 @@ public class AdminFilter implements Filter {
         HttpSession session = request.getSession();
 
         User user = (User) session.getAttribute(Constant.MALL_USER);
+        //用户未登录则向前端返回需要登录的信息
         if (user == null) {
             PrintWriter out = new HttpServletResponseWrapper((HttpServletResponse) servletResponse).getWriter();
             out.write("{\n" +
@@ -37,6 +38,7 @@ public class AdminFilter implements Filter {
             out.close();
             return;
         }
+        //用户没有管理员权限则向前端返回需要管理员登录的信息
         if (userService.checkAdminRole(user)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {

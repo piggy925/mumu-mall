@@ -11,7 +11,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import java.time.Duration;
 
 /**
- * Redis缓存配置类.
+ * Redis缓存配置类：配置Redis缓存
  */
 @EnableCaching
 @Configuration

@@ -5,6 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+
+/**
+ * Wev Mvc配置类：用于解析静态资源.
+ */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
     @Override

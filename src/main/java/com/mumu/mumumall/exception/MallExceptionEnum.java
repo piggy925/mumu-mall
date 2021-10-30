@@ -1,5 +1,8 @@
 package com.mumu.mumumall.exception;
 
+/**
+ * 异常枚举类：用于存放返回异常的代码与信息.
+ */
 public enum MallExceptionEnum {
     NEED_USER_NAME(10001, "用户名不能为空"),
     NEED_PASSWORD(10002, "密码不能为空"),

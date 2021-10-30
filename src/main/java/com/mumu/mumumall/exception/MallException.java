@@ -1,5 +1,8 @@
 package com.mumu.mumumall.exception;
 
+/**
+ * 异常类.
+ */
 public class MallException extends RuntimeException {
     private Integer code;
     private String msg;

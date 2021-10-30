@@ -11,6 +11,10 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+
+/**
+ * 配置Swagger3接口文档
+ */
 @Configuration
 public class Swagger3Config {
     @Value("${swagger3.enable}")

@@ -23,6 +23,7 @@ public class UserFilter implements Filter {
         HttpSession session = request.getSession();
 
         currentUser = (User) session.getAttribute(Constant.MALL_USER);
+        //用户未登录则提示需要登录
         if (currentUser == null) {
             PrintWriter out = new HttpServletResponseWrapper((HttpServletResponse) servletResponse).getWriter();
             out.write("{\n" +
